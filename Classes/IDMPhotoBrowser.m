@@ -73,6 +73,10 @@ NSLocalizedStringFromTableInBundle((key), nil, [NSBundle bundleWithPath:[[NSBund
 	// iOS 7
     UIViewController *_applicationTopViewController;
     int _previousModalPresentationStyle;
+    
+    //KG
+    UINavigationItem *_topItem;
+    UINavigationBar *navBar;
 }
 
 // Private Properties
@@ -622,15 +626,14 @@ NSLocalizedStringFromTableInBundle((key), nil, [NSBundle bundleWithPath:[[NSBund
 //        [_doneButton setImage:_doneButtonImage forState:UIControlStateNormal];
 //        _doneButton.contentMode = UIViewContentModeScaleAspectFit;
 //    }
-    UINavigationBar *navBar = [[UINavigationBar alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth([UIScreen mainScreen].bounds), 64)];
-    UINavigationItem *topItem = [[UINavigationItem alloc] init];
-    navBar.barStyle = UIBarStyleBlack;
-    navBar.tintColor = [UIColor whiteColor];
-    topItem.title = @"1 of 3";
-    [self.view addSubview:navBar];
+    _navBar = [[UINavigationBar alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth([UIScreen mainScreen].bounds), 64)];
+    _topItem = [[UINavigationItem alloc] init];
+    _navBar.barStyle = UIBarStyleBlack;
+    _navBar.tintColor = [UIColor whiteColor];
+    [self.view addSubview:_navBar];
     
-    topItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(doneButtonPressed:)];
-    [navBar setItems:@[ topItem ]];
+    _topItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(doneButtonPressed:)];
+    [navBar setItems:@[ _topItem ]];
 
     UIImage *leftButtonImage = (_leftArrowImage == nil) ?
     [UIImage imageNamed:@"IDMPhotoBrowser.bundle/images/IDMPhotoBrowser_arrowLeft.png"]          : _leftArrowImage;
@@ -1080,6 +1083,8 @@ NSLocalizedStringFromTableInBundle((key), nil, [NSBundle bundleWithPath:[[NSBund
     if ([_delegate respondsToSelector:@selector(photoBrowser:didShowPhotoAtIndex:)]) {
         [_delegate photoBrowser:self didShowPhotoAtIndex:index];
     }
+    
+    _topItem.title = [NSString stringWithFormat:@"%d of %d", index, _photos.count];
 }
 
 #pragma mark - Frame Calculations
