@@ -628,7 +628,7 @@ NSLocalizedStringFromTableInBundle((key), nil, [NSBundle bundleWithPath:[[NSBund
     navBar.tintColor = [UIColor whiteColor];
     [self.view addSubview:navBar];
     
-    topItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(dismissAction)];
+    topItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(doneButtonPressed:)];
     [navBar setItems:@[ topItem ]];
 
     UIImage *leftButtonImage = (_leftArrowImage == nil) ?
@@ -857,7 +857,7 @@ NSLocalizedStringFromTableInBundle((key), nil, [NSBundle bundleWithPath:[[NSBund
     _toolbar.barStyle = UIBarStyleBlack;
     _toolbar.tintColor = [UIColor whiteColor];
     
-    UIBarButtonItem *actionItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:nil];
+    UIBarButtonItem *actionItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(doneButtonPressed:)];
     UIBarButtonItem *spaceItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:self action:nil];
     NSArray *toolbarItems = @[ spaceItem, actionItem ];
     _toolbar.items = toolbarItems;
