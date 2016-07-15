@@ -626,6 +626,7 @@ NSLocalizedStringFromTableInBundle((key), nil, [NSBundle bundleWithPath:[[NSBund
     UINavigationItem *topItem = [[UINavigationItem alloc] init];
     navBar.barStyle = UIBarStyleBlack;
     navBar.tintColor = [UIColor whiteColor];
+    topItem.title = @"1 of 3";
     [self.view addSubview:navBar];
     
     topItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(doneButtonPressed:)];
