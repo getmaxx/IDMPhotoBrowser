@@ -76,7 +76,7 @@ NSLocalizedStringFromTableInBundle((key), nil, [NSBundle bundleWithPath:[[NSBund
     
     //KG
     UINavigationItem *_topItem;
-    UINavigationBar *navBar;
+    UINavigationBar *_navBar;
 }
 
 // Private Properties
