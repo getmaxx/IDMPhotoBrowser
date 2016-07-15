@@ -595,32 +595,33 @@ NSLocalizedStringFromTableInBundle((key), nil, [NSBundle bundleWithPath:[[NSBund
 
     // Toolbar
     _toolbar = [[UIToolbar alloc] initWithFrame:[self frameForToolbarAtOrientation:currentOrientation]];
-    _toolbar.backgroundColor = [UIColor clearColor];
+    _toolbar.barStyle = UIBarStyleBlack;
+//    _toolbar.backgroundColor = [UIColor clearColor];
     _toolbar.clipsToBounds = YES;
     _toolbar.translucent = YES;
-    [_toolbar setBackgroundImage:[UIImage new]
-              forToolbarPosition:UIToolbarPositionAny
-                      barMetrics:UIBarMetricsDefault];
+//    [_toolbar setBackgroundImage:[UIImage new]
+//              forToolbarPosition:UIToolbarPositionAny
+//                      barMetrics:UIBarMetricsDefault];
 
-    // Close Button
-    _doneButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [_doneButton setFrame:[self frameForDoneButtonAtOrientation:currentOrientation]];
-    [_doneButton setAlpha:1.0f];
-    [_doneButton addTarget:self action:@selector(doneButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
-
-    if(!_doneButtonImage) {
-        [_doneButton setTitleColor:[UIColor colorWithWhite:0.9 alpha:0.9] forState:UIControlStateNormal|UIControlStateHighlighted];
-        [_doneButton setTitle:IDMPhotoBrowserLocalizedStrings(@"Done") forState:UIControlStateNormal];
-        [_doneButton.titleLabel setFont:[UIFont boldSystemFontOfSize:11.0f]];
-        [_doneButton setBackgroundColor:[UIColor colorWithWhite:0.1 alpha:0.5]];
-        _doneButton.layer.cornerRadius = 3.0f;
-        _doneButton.layer.borderColor = [UIColor colorWithWhite:0.9 alpha:0.9].CGColor;
-        _doneButton.layer.borderWidth = 1.0f;
-    }
-    else {
-        [_doneButton setImage:_doneButtonImage forState:UIControlStateNormal];
-        _doneButton.contentMode = UIViewContentModeScaleAspectFit;
-    }
+//    // Close Button
+//    _doneButton = [UIButton buttonWithType:UIButtonTypeCustom];
+//    [_doneButton setFrame:[self frameForDoneButtonAtOrientation:currentOrientation]];
+//    [_doneButton setAlpha:1.0f];
+//    [_doneButton addTarget:self action:@selector(doneButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+//
+//    if(!_doneButtonImage) {
+//        [_doneButton setTitleColor:[UIColor colorWithWhite:0.9 alpha:0.9] forState:UIControlStateNormal|UIControlStateHighlighted];
+//        [_doneButton setTitle:IDMPhotoBrowserLocalizedStrings(@"Done") forState:UIControlStateNormal];
+//        [_doneButton.titleLabel setFont:[UIFont boldSystemFontOfSize:11.0f]];
+//        [_doneButton setBackgroundColor:[UIColor colorWithWhite:0.1 alpha:0.5]];
+//        _doneButton.layer.cornerRadius = 3.0f;
+//        _doneButton.layer.borderColor = [UIColor colorWithWhite:0.9 alpha:0.9].CGColor;
+//        _doneButton.layer.borderWidth = 1.0f;
+//    }
+//    else {
+//        [_doneButton setImage:_doneButtonImage forState:UIControlStateNormal];
+//        _doneButton.contentMode = UIViewContentModeScaleAspectFit;
+//    }
 
     UIImage *leftButtonImage = (_leftArrowImage == nil) ?
     [UIImage imageNamed:@"IDMPhotoBrowser.bundle/images/IDMPhotoBrowser_arrowLeft.png"]          : _leftArrowImage;
@@ -806,40 +807,62 @@ NSLocalizedStringFromTableInBundle((key), nil, [NSBundle bundleWithPath:[[NSBund
     } else {
         [_toolbar removeFromSuperview];
     }
+    
+        self.displayDoneButton = NO;
+        self.autoHideInterface = NO;
+        self.displayToolbar = NO;
+        UINavigationBar *navBar = [[UINavigationBar alloc] initWithFrame:CGRectMake(0, 0, KGScreenWidth(), 64)];
+        UINavigationItem *topItem = [[UINavigationItem alloc] init];
+        navBar.barStyle = UIBarStyleBlack;
+        navBar.tintColor = [UIColor whiteColor];
+        [self.view addSubview:navBar];
+    
+        topItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(dismissAction)];
+        [navBar setItems:@[ topItem ]];
+
 
     // Close button
-    if(_displayDoneButton && !self.navigationController.navigationBar)
-        [self.view addSubview:_doneButton];
+//    if(_displayDoneButton && !self.navigationController.navigationBar)
+//        [self.view addSubview:_doneButton];
 
-    // Toolbar items & navigation
-    UIBarButtonItem *fixedLeftSpace = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace
-                                                                                    target:self action:nil];
-    fixedLeftSpace.width = 32; // To balance action button
-    UIBarButtonItem *flexSpace = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace
-                                                                               target:self action:nil];
-    NSMutableArray *items = [NSMutableArray new];
+//    // Toolbar items & navigation
+//    UIBarButtonItem *fixedLeftSpace = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace
+//                                                                                    target:self action:nil];
+//    fixedLeftSpace.width = 32; // To balance action button
+//    UIBarButtonItem *flexSpace = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace
+//                                                                               target:self action:nil];
+//    NSMutableArray *items = [NSMutableArray new];
+//
+//    if (_displayActionButton)
+//        [items addObject:fixedLeftSpace];
+//    [items addObject:flexSpace];
+//
+//    if (numberOfPhotos > 1 && _displayArrowButton)
+//        [items addObject:_previousButton];
+//
+//    if(_displayCounterLabel) {
+//        [items addObject:flexSpace];
+//        [items addObject:_counterButton];
+//    }
+//
+//    [items addObject:flexSpace];
+//    if (numberOfPhotos > 1 && _displayArrowButton)
+//        [items addObject:_nextButton];
+//    [items addObject:flexSpace];
+//
+//    if(_displayActionButton)
+//        [items addObject:_actionButton];
+//
+//    [_toolbar setItems:items];
+    _toolbar.barStyle = UIBarStyleBlack;
+    _toolbar.tintColor = [UIColor whiteColor];
+    
+    UIBarButtonItem *actionItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:nil];
+    UIBarButtonItem *spaceItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:self action:nil];
+    NSArray *toolbarItems = @[ spaceItem, actionItem ];
+    toolbar.items = toolbarItems;
 
-    if (_displayActionButton)
-        [items addObject:fixedLeftSpace];
-    [items addObject:flexSpace];
-
-    if (numberOfPhotos > 1 && _displayArrowButton)
-        [items addObject:_previousButton];
-
-    if(_displayCounterLabel) {
-        [items addObject:flexSpace];
-        [items addObject:_counterButton];
-    }
-
-    [items addObject:flexSpace];
-    if (numberOfPhotos > 1 && _displayArrowButton)
-        [items addObject:_nextButton];
-    [items addObject:flexSpace];
-
-    if(_displayActionButton)
-        [items addObject:_actionButton];
-
-    [_toolbar setItems:items];
+    
 	[self updateToolbar];
 
     // Content offset
