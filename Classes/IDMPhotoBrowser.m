@@ -622,6 +622,14 @@ NSLocalizedStringFromTableInBundle((key), nil, [NSBundle bundleWithPath:[[NSBund
 //        [_doneButton setImage:_doneButtonImage forState:UIControlStateNormal];
 //        _doneButton.contentMode = UIViewContentModeScaleAspectFit;
 //    }
+    UINavigationBar *navBar = [[UINavigationBar alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth([UIScreen mainScreen].bounds), 64)];
+    UINavigationItem *topItem = [[UINavigationItem alloc] init];
+    navBar.barStyle = UIBarStyleBlack;
+    navBar.tintColor = [UIColor whiteColor];
+    [self.view addSubview:navBar];
+    
+    topItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(dismissAction)];
+    [navBar setItems:@[ topItem ]];
 
     UIImage *leftButtonImage = (_leftArrowImage == nil) ?
     [UIImage imageNamed:@"IDMPhotoBrowser.bundle/images/IDMPhotoBrowser_arrowLeft.png"]          : _leftArrowImage;
@@ -811,14 +819,6 @@ NSLocalizedStringFromTableInBundle((key), nil, [NSBundle bundleWithPath:[[NSBund
         self.displayDoneButton = NO;
         self.autoHideInterface = NO;
         self.displayToolbar = NO;
-        UINavigationBar *navBar = [[UINavigationBar alloc] initWithFrame:CGRectMake(0, 0, KGScreenWidth(), 64)];
-        UINavigationItem *topItem = [[UINavigationItem alloc] init];
-        navBar.barStyle = UIBarStyleBlack;
-        navBar.tintColor = [UIColor whiteColor];
-        [self.view addSubview:navBar];
-    
-        topItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(dismissAction)];
-        [navBar setItems:@[ topItem ]];
 
 
     // Close button
