@@ -1084,7 +1084,7 @@ NSLocalizedStringFromTableInBundle((key), nil, [NSBundle bundleWithPath:[[NSBund
         [_delegate photoBrowser:self didShowPhotoAtIndex:index];
     }
     
-    _topItem.title = [NSString stringWithFormat:@"%d of %d", index, _photos.count];
+    _topItem.title = [NSString stringWithFormat:@"%d of %d", index + 1, _photos.count];
 }
 
 #pragma mark - Frame Calculations
