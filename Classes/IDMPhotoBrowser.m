@@ -860,7 +860,7 @@ NSLocalizedStringFromTableInBundle((key), nil, [NSBundle bundleWithPath:[[NSBund
     UIBarButtonItem *actionItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:nil];
     UIBarButtonItem *spaceItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:self action:nil];
     NSArray *toolbarItems = @[ spaceItem, actionItem ];
-    toolbar.items = toolbarItems;
+    _toolbar.items = toolbarItems;
 
     
 	[self updateToolbar];
